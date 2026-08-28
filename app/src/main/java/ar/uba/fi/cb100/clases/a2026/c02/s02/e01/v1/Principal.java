@@ -2,6 +2,10 @@ package ar.uba.fi.cb100.clases.a2026.c02.s02.e01.v1;
 
 //import ar.uba.fi.cb100.clases.a2026.c02.s02.e01.v1.Punto;
 
+import ar.uba.fi.cb100.clases.a2026.c02.s02.e05.Formal;
+import ar.uba.fi.cb100.clases.a2026.c02.s02.e05.Informal;
+import ar.uba.fi.cb100.clases.a2026.c02.s02.e05.Saludador;
+
 public class Principal {
 
     public static void main(String[] args) {
@@ -109,6 +113,28 @@ public class Principal {
             } else {
                 System.out.println("El punto 1 es mayor que el punto 2");
             }
+
         }
+    }
+
+
+    public static void saludador() {
+        Formal formal = new Formal();
+        System.out.println(formal.saludar());
+        nombreDelMetodo(formal);
+        formal.getUnValor();
+
+        Informal informal = new Informal();
+        System.out.println(informal.saludar());
+        nombreDelMetodo(informal);
+        //informal.getUnValor(); NO COMPILA
+
+        Punto p1 = new Punto();
+        //nombreDelMetodo(p1); NO COMPILA
+    }
+
+    public static void nombreDelMetodo(Saludador s) {
+        System.out.println( s.saludar() );
+        //s.getUnValor(); NO COMPILA
     }
 }

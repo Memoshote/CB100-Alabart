@@ -1,16 +1,17 @@
-# CB100 — Clases de la semana 01
+# CB100 — Clases de la semana 02
 
-Introduccion
+Introduccion y TDA
 
-Vimos la parte administrativa, introduccion a la materia, e introduccion a Java.
+Terminamos introduccion a Java y arrancamos con TDA.
 
-Video del miercoles 19/08: https://youtu.be/87bqMDsIMmo
+Video del miercoles 26/08: https://youtu.be/yg1jaGuH1_U
 
-Video del jueves 20/08: https://youtu.be/EW56Q7M2z4I
+Video del jueves 27/08: https://youtu.be/DiOx--VL4IQ
 
 Tarea
-Iniciar con el tp 1 y la guia 01.
+Avanzar con el tp 1, terminar la guia 01 y 02.
 
 
 Preguntas:
 1- Guia para la licencia de Intellij
+ar/uba/fi/cb100/clases/a2026/c02/s01/licencia-intellij.md

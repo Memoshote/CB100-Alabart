@@ -1,0 +1,59 @@
+package ar.uba.fi.cb100.clases.a2026.c02.tps.tp1;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+
+public class Tp1 {
+
+    private static final String ENTRADA_POR_DEFECTO =
+            "app/src/main/java/ar/uba/fi/cb100/clases/a2026/c02/tps/tp1/datos/prestamos.csv";
+    private static final LocalDate CORTE_POR_DEFECTO = LocalDate.parse("2026-05-04");
+    private static final int TAMANO_DEL_RANKING = 3;
+
+    public static void main(String[] args) throws IOException {
+        Path archivoDeEntrada = args.length > 0 ? Path.of(args[0]) : Path.of(ENTRADA_POR_DEFECTO);
+        LocalDate corte = args.length > 1 ? LocalDate.parse(args[1]) : CORTE_POR_DEFECTO;
+
+        ResultadoDeCarga resultado = LectorDePrestamos.cargar(archivoDeEntrada);
+        mostrarResumenDeCarga(resultado);
+
+        FilaDeSocio[] filas = Reporteador.porSocio(resultado.registro(), corte);
+        String[] ranking = Reporteador.ranking(resultado.registro(), TAMANO_DEL_RANKING);
+
+        Path reporteTxt = Path.of("salida", "reporte.txt");
+        Path reporteCsv = Path.of("salida", "reporte.csv");
+
+        ExportadorDeReporte exportadorTxt = new ExportadorTxt(corte);
+        exportadorTxt.exportar(filas, reporteTxt);
+        agregarRankingAlTxt(reporteTxt, ranking);
+
+        ExportadorDeReporte exportadorCsv = new ExportadorCsv();
+        exportadorCsv.exportar(filas, reporteCsv);
+    }
+
+    private static void mostrarResumenDeCarga(ResultadoDeCarga resultado) {
+        int validas = resultado.registro().cantidad();
+        int descartadas = resultado.errores().length;
+
+        System.out.println("Lineas de datos: " + resultado.lineasDeDatos()
+                + " | validas: " + validas
+                + " | descartadas: " + descartadas);
+
+        for (String error : resultado.errores()) {
+            System.out.println("  " + error);
+        }
+    }
+
+    private static void agregarRankingAlTxt(Path reporteTxt, String[] ranking) throws IOException {
+        StringBuilder texto = new StringBuilder();
+        texto.append(System.lineSeparator());
+        texto.append("TITULOS MAS PEDIDOS").append(System.lineSeparator());
+        for (String linea : ranking) {
+            texto.append(linea).append(System.lineSeparator());
+        }
+        Files.writeString(reporteTxt, texto.toString(), StandardOpenOption.APPEND);
+    }
+}
